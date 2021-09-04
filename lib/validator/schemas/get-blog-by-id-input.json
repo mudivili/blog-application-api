@@ -1,0 +1,13 @@
+{
+	"$id": "GetBlogByIdInput",
+  "type": "object",
+  "properties":
+  {
+    "blogId":
+    {
+      "type": "string"
+    }
+  },
+  "required": ["blogId"],
+  "additionalProperties": false
+}

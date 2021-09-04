@@ -1,0 +1,19 @@
+{
+	"$id": "Blog",
+  "type": "object",
+  "properties":
+  {
+    "title":
+    {
+      "type": "string",
+      "minLength": 5
+    },
+    "content":
+    {
+      "type": "string",
+      "minLength": 10
+    }
+  },
+  "required": ["title", "content"],
+  "additionalProperties": false
+}

@@ -1,0 +1,27 @@
+{
+  "$id": "QueryOptions",
+  "type": "object",
+  "properties":
+  {
+    "sortOptions":
+    {
+      "type": "object",
+      "properties":
+      {
+        "createdAt":
+        {
+          "type": "number",
+          "enum": [1, -1]
+        }
+      },
+      "default":
+      {
+        "sortOptions":
+        {
+          
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
