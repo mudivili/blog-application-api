@@ -16,7 +16,13 @@ class Server {
       extended: true
     }));
     this.app.use(bodyParser.json());
-    this.app.use(cors());
+
+    const corsOptions = {
+      origin: '*',
+      methods: ['POST', 'GET', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    };
+    this.app.use(cors(corsOptions));
 
   }
 
@@ -26,11 +32,11 @@ class Server {
 
     for (let route of routes) {
 
-    	const handler = Server.buildHandler(route);
-    	const methodName = route.method.toLowerCase();
-    	const routePath = route.path;
-      
-    	this.app[methodName](routePath, handler);
+      const handler = Server.buildHandler(route);
+      const methodName = route.method.toLowerCase();
+      const routePath = route.path;
+
+      this.app[methodName](routePath, handler);
 
     }
 
@@ -38,14 +44,13 @@ class Server {
 
   async start() {
 
-  	try {
-  		await this.app.listen(this.port);
-  	}
-  	catch(exception) {
-  		console.log('Failed to start server: ', exception);
-  	}
+    try {
+      await this.app.listen(this.port);
+    } catch (exception) {
+      console.log('Failed to start server: ', exception);
+    }
 
-  	console.log(`Server running on ${this.host}:${this.port}`);
+    console.log(`Server running on ${this.host}:${this.port}`);
 
   }
 
@@ -53,10 +58,10 @@ class Server {
 
     return async function genericHandler(request, response, next) {
 
-    	const result = {
-    		success: true,
-    		data: null
-    	};
+      const result = {
+        success: true,
+        data: null
+      };
 
       try {
 
@@ -69,13 +74,13 @@ class Server {
 
       } catch (exception) {
 
-      	result.success = false;
-      	result.data = exception;
+        result.success = false;
+        result.data = exception;
 
       }
 
-      if(result.success === false) {
-      	response.status(500);
+      if (result.success === false) {
+        response.status(500);
       }
 
       response.json(result);
@@ -86,7 +91,7 @@ class Server {
 
   static constructQueryOptions(query) {
 
-    if(typeof query.queryOptions === 'undefined') {
+    if (typeof query.queryOptions === 'undefined') {
       return {};
     }
 
@@ -94,8 +99,7 @@ class Server {
 
       return JSON.parse(query.queryOptions);
 
-    }
-    catch(exception) {
+    } catch (exception) {
       return {};
     }
 

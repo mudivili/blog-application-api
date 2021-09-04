@@ -1,5 +1,5 @@
 const config = require('config');
-console.log('Config: ', config);
+
 const ServerError = require('./error');
 const DatabaseBridge = require('./database');
 const Validator = require('./lib/validator');
