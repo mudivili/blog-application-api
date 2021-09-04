@@ -16,13 +16,7 @@ class Server {
       extended: true
     }));
     this.app.use(bodyParser.json());
-
-    const corsOptions = {
-      origin: ['https://blog-application-browser-client.vercel.app'],
-      methods: ['POST', 'GET', 'PATCH', 'DELETE', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization']
-    };
-    this.app.use(cors(corsOptions));
+    this.app.use(cors());
 
   }
 
