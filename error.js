@@ -1,59 +1,59 @@
 class ServerError extends Error {
 
-	constructor(name, message, code) {
+  constructor(name, message, code) {
 
-		super(name, message, code);
+    super(name, message, code);
 
-		this.name = name;
-		this.message = message;
-		this.code = code;
+    this.name = name;
+    this.message = message;
+    this.code = code;
 
-	}
+  }
 
-	toString() {
+  toString() {
 
-		return JSON.stringify({
-			name: this.name,
-			message: this.message,
-			code: this.code
-		});
+    return JSON.stringify({
+      name: this.name,
+      message: this.message,
+      code: this.code
+    });
 
-	}
+  }
 
-	static formatError(name, message, code) {
-		
-		return new ServerError(name, message, code);
+  static formatError(name, message, code) {
 
-	}
+    return new ServerError(name, message, code);
 
-	static formatValidationError(name, errors) {
-		
-		return new ValidationError(name, errors);
+  }
 
-	}
+  static formatValidationError(name, errors) {
+
+    return new ValidationError(name, errors);
+
+  }
 
 }
 
 class ValidationError extends ServerError {
 
-	constructor(name, errors) {
+  constructor(name, errors) {
 
-		super(name, errors);
+    super(name, errors);
 
-		this.errors = errors;
+    this.errors = errors;
 
-	}
+  }
 
-	toString() {
+  toString() {
 
-		return JSON.stringify({
-			name: this.name,
-			message: this.message,
-			code: this.code,
-			errors: this.errors
-		});
+    return JSON.stringify({
+      name: this.name,
+      message: this.message,
+      code: this.code,
+      errors: this.errors
+    });
 
-	}
+  }
 
 }
 
