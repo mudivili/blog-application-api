@@ -1,5 +1,5 @@
 {
-	"$id": "Blog",
+  "$id": "Blog",
   "type": "object",
   "properties":
   {

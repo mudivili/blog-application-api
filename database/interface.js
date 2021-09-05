@@ -2,87 +2,84 @@ const { ObjectId } = require('mongodb');
 
 class DatabaseInterface {
 
-	constructor(database, formatError) {
+  constructor(database, formatError) {
 
-		this.database = database;
-		this.formatError = formatError;
+    this.database = database;
+    this.formatError = formatError;
 
-	}
+  }
 
-	async saveBlog(blog) {
+  async saveBlog(blog) {
 
-		let result = null;
+    let result = null;
 
-		try {
-			blog.createdAt = Date.now();
-			result = await this.database.collection('blogs').insert(blog);
-			blog._id = result.insertedIds['0'];
-		}
-		catch(error) {
-			throw this.formatError('Database Error', error.message, error.code);
-		}
+    try {
+      blog.createdAt = Date.now();
+      result = await this.database.collection('blogs').insert(blog);
+      blog._id = result.insertedIds['0'];
+    } catch (error) {
+      throw this.formatError('Database Error', error.message, error.code);
+    }
 
-		return blog;
+    return blog;
 
-	}
+  }
 
-	async fetchAllBlogs(queryOptions) {
+  async fetchAllBlogs(queryOptions) {
 
-		let result = null;
-		let options = DatabaseInterface.transformQueryOptions(queryOptions);
+    let result = null;
+    let options = DatabaseInterface.transformQueryOptions(queryOptions);
 
-		try {
-			result = await this.database.collection('blogs').find({}, options).toArray();
-		}
-		catch(error) {
-			throw this.formatError('Database Error', error.message, error.code);
-		}
+    try {
+      result = await this.database.collection('blogs').find({}, options).toArray();
+    } catch (error) {
+      throw this.formatError('Database Error', error.message, error.code);
+    }
 
-		return result;
+    return result;
 
-	}
+  }
 
-	async findBlogById(blogId) {
+  async findBlogById(blogId) {
 
-		let result = null;
-		let _id = DatabaseInterface.toObjectId(blogId);
+    let result = null;
+    let _id = DatabaseInterface.toObjectId(blogId);
 
-		try {
-			result = await this.database.collection('blogs').findOne({
-				_id
-			});
-		}
-		catch(error) {
-			throw this.formatError('Database Error', error.message, error.code);
-		}
+    try {
+      result = await this.database.collection('blogs').findOne({
+        _id
+      });
+    } catch (error) {
+      throw this.formatError('Database Error', error.message, error.code);
+    }
 
-		return result;
+    return result;
 
-	}
+  }
 
-	static transformQueryOptions(queryOptions) {
+  static transformQueryOptions(queryOptions) {
 
-		const options = {
-			sort: []
-		};
+    const options = {
+      sort: []
+    };
 
-		if(typeof queryOptions.sortOptions.createdAt !== undefined) {
-			options.sort.push(['createdAt', queryOptions.sortOptions.createdAt]);
-		}
+    if (typeof queryOptions.sortOptions.createdAt !== undefined) {
+      options.sort.push(['createdAt', queryOptions.sortOptions.createdAt]);
+    }
 
-		return options;
+    return options;
 
-	}
+  }
 
-	static toObjectId(objectIdString) {
+  static toObjectId(objectIdString) {
 
-		if(typeof objectIdString !== 'string') {
-			return null;
-		}
+    if (typeof objectIdString !== 'string') {
+      return null;
+    }
 
-		return ObjectId(objectIdString);
+    return ObjectId(objectIdString);
 
-	}
+  }
 
 }
 

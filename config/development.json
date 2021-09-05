@@ -1,14 +1,16 @@
 {
-	"server": {
-		"host": "127.0.0.1",
-		"port": "8080"
-	},
-	"database": {
-		"srv": true,
-		"host": "z6438ae7f-mongodb.qovery.io",
-		"port": 27017,
-		"name": "blogapplication",
-		"username": "root",
-		"password": "VNkGBgLEqqlmPGxZ"
-	}
+  "server":
+  {
+    "host": "127.0.0.1",
+    "port": "8080"
+  },
+  "database":
+  {
+    "srv": true,
+    "host": "z6438ae7f-mongodb.qovery.io",
+    "port": 27017,
+    "name": "blogapplication",
+    "username": "root",
+    "password": "VNkGBgLEqqlmPGxZ"
+  }
 }
